@@ -1,6 +1,9 @@
 package tech.mhbm.pp_backend.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.persistence.*;
+import tech.mhbm.pp_backend.domain.models.exceptions.InvalidEnumValueException;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -55,6 +58,23 @@ public class WalletType implements Serializable {
 
         public WalletType get() {
             return new WalletType(id, description);
+        }
+
+        @JsonCreator
+        public static Enum fromString(String key) {
+            if (key != null) {
+                for (Enum e : values()) {
+                    if (e.description.equalsIgnoreCase(key) || e.id.toString().equals(key)) {
+                        return e;
+                    }
+                }
+            }
+            throw new InvalidEnumValueException("Value: " + key + " is invalid for WalletType, use: user(1) or merchant(2)");
+        }
+
+        @JsonValue
+        public String toValue() {
+            return this.description;
         }
     }
 
