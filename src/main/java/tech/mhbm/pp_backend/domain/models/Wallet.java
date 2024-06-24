@@ -1,6 +1,7 @@
 package tech.mhbm.pp_backend.domain.models;
 
 import jakarta.persistence.*;
+import tech.mhbm.pp_backend.domain.controllers.dtos.WalletResponseDto;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -39,6 +40,10 @@ public class Wallet implements Serializable {
         this.email = email;
         this.password = password;
         this.walletType = walletType;
+    }
+
+    public WalletResponseDto toWalletResponseDto() {
+        return new WalletResponseDto(name, cpfCnpj, email, password, walletType.getDescription(), balance);
     }
 
     public Long getId() {
