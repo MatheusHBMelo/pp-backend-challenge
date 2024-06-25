@@ -35,4 +35,28 @@ public class ControllerExceptionHandler {
         pb.setDetail(e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(pb);
     }
+
+    @ExceptionHandler(InsufficientBalanceException.class)
+    public ResponseEntity<ProblemDetail> InsufficientBalanceExceptionHandler(InsufficientBalanceException e) {
+        ProblemDetail pb = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        pb.setTitle("Insufficient balance");
+        pb.setDetail(e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(pb);
+    }
+
+    @ExceptionHandler(TransferNotAllowedForWalletTypeException.class)
+    public ResponseEntity<ProblemDetail> TransferNotAllowedForWalletTypeExceptionHandler(TransferNotAllowedForWalletTypeException e) {
+        ProblemDetail pb = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        pb.setTitle("Transfer not allowed for wallet type");
+        pb.setDetail(e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(pb);
+    }
+
+    @ExceptionHandler(WalletNotFoundException.class)
+    public ResponseEntity<ProblemDetail> WalletNotFoundExceptionHandler(WalletNotFoundException e) {
+        ProblemDetail pb = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        pb.setTitle("Wallet not found");
+        pb.setDetail(e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pb);
+    }
 }
