@@ -2,6 +2,7 @@ package tech.mhbm.pp_backend.domain.services;
 
 import org.springframework.stereotype.Service;
 import tech.mhbm.pp_backend.domain.clients.AuthorizationClient;
+import tech.mhbm.pp_backend.domain.controllers.dtos.TransferRequest;
 import tech.mhbm.pp_backend.domain.services.exceptions.UnauthorizedTransactionException;
 
 @Service
@@ -12,7 +13,7 @@ public class AuthorizationService {
         this.authorizationClient = authorizationClient;
     }
 
-    public boolean authorize() {
+    public boolean authorize(TransferRequest transferRequest) {
         var response = authorizationClient.isAuthorized();
         if (response == null) {
             throw new UnauthorizedTransactionException("Authorization response is null");
