@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import tech.mhbm.pp_backend.domain.models.exceptions.InvalidEnumValueException;
+import tech.mhbm.pp_backend.domain.services.exceptions.UnauthorizedTransactionException;
 import tech.mhbm.pp_backend.domain.services.exceptions.WalletAlreadyExistsException;
 
 @ControllerAdvice
@@ -25,5 +26,13 @@ public class ControllerExceptionHandler {
         pb.setTitle("Invalid enum value");
         pb.setDetail(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pb);
+    }
+
+    @ExceptionHandler(UnauthorizedTransactionException.class)
+    public ResponseEntity<ProblemDetail> UnauthorizedTransactionExceptionHandler(UnauthorizedTransactionException e) {
+        ProblemDetail pb = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        pb.setTitle("Unauthorized transaction");
+        pb.setDetail(e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(pb);
     }
 }
