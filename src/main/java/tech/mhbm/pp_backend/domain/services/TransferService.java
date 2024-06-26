@@ -16,16 +16,16 @@ import tech.mhbm.pp_backend.domain.services.exceptions.UnauthorizedTransactionEx
 import java.util.concurrent.CompletableFuture;
 
 @Service
-public class TranferService {
+public class TransferService {
     private final TransferRepository transferRepository;
     private final WalletRepository walletRepository;
     private final AuthorizationService authorizationService;
     private final NotificationService notificationService;
 
-    public TranferService(TransferRepository transferRepository,
-                          WalletRepository walletRepository,
-                          AuthorizationService authorizationService,
-                          NotificationService notificationService) {
+    public TransferService(TransferRepository transferRepository,
+                           WalletRepository walletRepository,
+                           AuthorizationService authorizationService,
+                           NotificationService notificationService) {
         this.transferRepository = transferRepository;
         this.walletRepository = walletRepository;
         this.authorizationService = authorizationService;
