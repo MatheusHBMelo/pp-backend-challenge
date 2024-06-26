@@ -61,7 +61,7 @@ O Padrão de camadas é uma escolha sólida para a construção de APIs REST, po
 
 ## Diagrama UML:
 
-<div align="center"><img src="https://github.com/MatheusHBMelo/pp-backend-challenge/blob/main/img/class-diagram.jpeg?raw=true" alt="Diagram class"></div>
+<div align="center"><img src="https://github.com/MatheusHBMelo/pp-backend-challenge/blob/main/img/class-diagram.png" alt="Diagram class"></div>
 
 ## Estrutura de commits:
 
@@ -109,7 +109,7 @@ Content-Type: application/json
   "cpfCnpj": "00000000",
   "email": "teste@Email.com",
   "password": "test123",
-  "walletType: 1 ou 2 || "user" ou "merchant"
+  "walletType:" 1 ou 2 || "user" ou "merchant"
 }
 ```
 
