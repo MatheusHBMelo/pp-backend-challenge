@@ -3,6 +3,7 @@ package tech.mhbm.pp_backend.domain.controllers.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import tech.mhbm.pp_backend.domain.models.exceptions.InvalidEnumValueException;
@@ -58,5 +59,20 @@ public class ControllerExceptionHandler {
         pb.setTitle("Wallet not found");
         pb.setDetail(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pb);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ProblemDetail> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        ProblemDetail pb = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        pb.setTitle("Method argument not valid");
+        var fieldsError = e.getFieldErrors()
+                .stream()
+                .map(f -> new InvalidParam(f.getField(), f.getDefaultMessage()))
+                .toList();
+        pb.setProperty("Invalid-Params", fieldsError);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pb);
+    }
+
+    private record InvalidParam(String field, String message) {
     }
 }

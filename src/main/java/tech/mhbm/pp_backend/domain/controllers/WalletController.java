@@ -1,5 +1,6 @@
 package tech.mhbm.pp_backend.domain.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class WalletController {
     }
 
     @PostMapping
-    public ResponseEntity<WalletResponseDto> createWallet(@RequestBody WalletRequestDto walletRequestDto) {
+    public ResponseEntity<WalletResponseDto> createWallet(@RequestBody @Valid WalletRequestDto walletRequestDto) {
         var result = walletService.createWallet(walletRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
