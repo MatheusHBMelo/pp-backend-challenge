@@ -1,5 +1,6 @@
 package tech.mhbm.pp_backend.domain.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class TransferController {
     }
 
     @PostMapping
-    public ResponseEntity<TransferResponse> createTransfer(@RequestBody TransferRequest transferRequest) {
+    public ResponseEntity<TransferResponse> createTransfer(@RequestBody @Valid TransferRequest transferRequest) {
         var result = transferService.createTransfer(transferRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
